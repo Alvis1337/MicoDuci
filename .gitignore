@@ -1,0 +1,6 @@
+/djenv/
+/venv/
+db.sqlite3
+.profile
+.bash_logout
+.bashrc
