@@ -3,7 +3,7 @@ from rest_framework import status, permissions
 from rest_framework.views import APIView
 from ..exceptions import NoArgumentSupplied, InvalidArgumentSupplied
 
-from .led_con_utils import LedControl
+from .led_con_utils import control_led
 
 
 class ControlLED(APIView):
@@ -21,7 +21,7 @@ class ControlLED(APIView):
 
         # blink LEDs
         try:
-            LedControl().control_led(pattern)
+            control_led(pattern)
             return JsonResponse({"data": "success"}, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
