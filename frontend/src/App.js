@@ -4,8 +4,8 @@ import {Button} from 'react-bootstrap';
 function ledControl(pattern) {
 
     let data = new FormData()
-    if (pattern === 'rainbow') {
-        data.append("blink_pattern", 'rainbow')
+    if (pattern === 'hydrate') {
+        data.append("blink_pattern", 'hydrate')
     } else {
         data.append("blink_pattern", 'off')
     }
@@ -42,9 +42,9 @@ function App() {
                         style={{marginTop: "1rem"}}
                         onClick={event => {
                             event.preventDefault()
-                            ledControl('rainbow')
+                            ledControl('hydrate')
                         }}>
-                        Rainbow
+                        Hydrate
                     </Button>
                 </div>
             </div>

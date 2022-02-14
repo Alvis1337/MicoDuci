@@ -22,4 +22,5 @@ from pidjango.core.views.led_controller import ControlLED
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('pidjango.core.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

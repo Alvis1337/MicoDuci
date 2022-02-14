@@ -51,7 +51,7 @@ pixels = neopixel.NeoPixel(
 #             b = int(255 - pos * 3)
 #         return (r, g, b) if ORDER in (neopixel.RGB, neopixel.GRB) else (r, g, b, 0)
 #
-#     def rainbow_cycle(self, arg):
+#     def hydrate(self, arg):
 #         t = threading.currentThread()
 #         while getattr(t, "do_run", True):
 #             print("working on %s" % arg)
@@ -83,7 +83,7 @@ pixels = neopixel.NeoPixel(
 #                         time.sleep(1)
 #                         print("in the loop " + str(self.led_loop_control))
 #
-#                         # self.rainbow_cycle(0.001)
+#                         # self.hydrate(0.001)
 #                     except:
 #                         return print('Failed to run cycle')
 #         print("terminating")
@@ -109,14 +109,14 @@ pixels = neopixel.NeoPixel(
 #                 pixels.show()
 #
 #     def control_led(self, pattern):
-#         if pattern == 'rainbow':
-#             t = threading.Thread(target=self.rainbow_cycle, args=("task",))
-#             print('doinfg the rainbow cycle')
+#         if pattern == 'hydrate':
+#             t = threading.Thread(target=self.hydrate, args=("task",))
+#             print('doinfg the hydrate cycle')
 #             t.start()
 #             time.sleep(10)
 #             t.do_run = False
 #             self.led_loop_control = True
-#             # self.rainbow_cycle(pattern)
+#             # self.hydrate(pattern)
 #
 #         elif pattern == 'off':
 #             self.off_cycle()
@@ -145,22 +145,28 @@ def wheel(pos):
     return (r, g, b) if ORDER in (neopixel.RGB, neopixel.GRB) else (r, g, b, 0)
 
 
-def rainbow_cycle(arg):
+def flashing_timeout():
+    start_time = threading.Timer(6, control_led("off"))
+    return start_time.start()
+
+
+def hydrate(arg):
     t = threading.currentThread()
+    flashing_timeout()
     while getattr(t, "do_run", True):
         for i in range(num_pixels):
             pixel_index = (i * 256 // num_pixels)
             pixels[i] = wheel(pixel_index & 255)
             try:
                 # Comment this line out if you have RGBW/GRBW NeoPixels
-                pixels.fill((255, 0, 0))
+                pixels.fill((0, 0, 255))
                 # Uncomment this line if you have RGBW/GRBW NeoPixels
                 # pixels.fill((255, 0, 0, 0))
                 pixels.show()
                 time.sleep(1)
 
                 # Comment this line out if you have RGBW/GRBW NeoPixels
-                pixels.fill((0, 255, 0))
+                pixels.fill((0, 0, 0))
                 # Uncomment this line if you have RGBW/GRBW NeoPixels
                 # pixels.fill((0, 255, 0, 0))
                 pixels.show()
@@ -171,37 +177,28 @@ def rainbow_cycle(arg):
                 # Uncomment this line if you have RGBW/GRBW NeoPixels
                 # pixels.fill((0, 0, 255, 0))
                 pixels.show()
-                time.sleep(1)
                 # print(j)
                 print("in the loop ")
 
-                # self.rainbow_cycle(0.001)
+                # self.hydrate(0.001)
             except:
                 return print('Failed to run cycle')
+    init_led()
+    print("init")
     print("terminating")
 
 
-def off_cycle():
-    for i in range(num_pixels):
-        pixel_index = (i * 256 // num_pixels)
-        pixels[i] = wheel(pixel_index & 255)
-
-        # Uncomment this line if you have RGBW/GRBW NeoPixels
-        pixels.fill((255, 0, 0, 0))
-        pixels.show()
-
-        # Uncomment this line if you have RGBW/GRBW NeoPixels
-        pixels.fill((0, 255, 0, 0))
-        pixels.show()
-
-        # Uncomment this line if you have RGBW/GRBW NeoPixels
-        pixels.fill((0, 0, 255, 0))
-        pixels.show()
+def init_led():
+    # Uncomment this line if you have RGBW/GRBW NeoPixels
+    pixels.fill((250, 140, 160))
+    pixels.show()
 
 
 def control_led(pattern):
-    if pattern == 'rainbow':
-        target_func = rainbow_cycle
+    target_func = hydrate
+
+    if pattern == 'hydrate':
+        target_func = hydrate
 
     elif pattern == 'off':
         # enumerate currently running thraeds looking for led_loop thread
