@@ -149,6 +149,63 @@ def flashing_timeout():
     start_time = threading.Timer(6, control_led("off"))
     return start_time.start()
 
+def albert(arg):
+    t = threading.currentThread()
+    flashing_timeout()
+    while getattr(t, "do_run", True):
+        for i in range(num_pixels):
+            pixel_index = (i * 256 // num_pixels)
+            pixels[i] = wheel(pixel_index & 255)
+            try:
+                pixels.fill((0, 255, 0))
+                pixels.show()
+                time.sleep(1)
+
+                pixels.fill((0, 0, 0))
+                pixels.show()
+                time.sleep(1)
+
+                pixels.fill((255, 255, 0))
+                pixels.show()
+                time.sleep(1)
+
+                print("in albert loop")
+
+            except:
+                return print("Failed to run the albert loop")
+    init_led()
+    print("init")
+    print("terminating")
+
+
+def fireball(arg):
+    t = threading.currentThread()
+    flashing_timeout()
+    while getattr(t, "do_run", True):
+        for i in range(num_pixels):
+            pixel_index = (i * 256 // num_pixels)
+            pixels[i] = wheel(pixel_index & 255)
+            try:
+                pixels.fill((255, 0, 0))
+                pixels.show()
+                time.sleep(1)
+
+                pixels.fill((0, 0, 0))
+                pixels.show()
+                time.sleep(1)
+
+                pixels.fill((255, 0, 0))
+                pixels.show()
+                time.sleep(1)
+
+                print("in fireball loop")
+
+            except:
+                return print("Failed to run the fireball loop")
+    init_led()
+    print("init")
+    print("terminating")
+
 
 def hydrate(arg):
     t = threading.currentThread()
@@ -178,11 +235,11 @@ def hydrate(arg):
                 # pixels.fill((0, 0, 255, 0))
                 pixels.show()
                 # print(j)
-                print("in the loop ")
+                print("in hydrate loop ")
 
                 # self.hydrate(0.001)
             except:
-                return print('Failed to run cycle')
+                return print('Failed to run hydrate loop')
     init_led()
     print("init")
     print("terminating")
@@ -195,10 +252,12 @@ def init_led():
 
 
 def control_led(pattern):
-    target_func = hydrate
 
     if pattern == 'hydrate':
         target_func = hydrate
+
+    if pattern == 'fireball':
+        target_func = fireball
 
     elif pattern == 'off':
         # enumerate currently running thraeds looking for led_loop thread
