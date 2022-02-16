@@ -1,6 +1,6 @@
 @php
-    $twitch_client_id = 'TWITCH_CLIENT_ID';
-    $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
+    $twitch_client_id = 'fpdbev7ktti34dhr9cwpbxa17tfqc6';
+    $twitch_client_secret = 'd3va2j8wk5ui61oj63ljksvta14vfn';
     $twitch_scopes = '';
 
     $helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
