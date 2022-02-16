@@ -15,7 +15,5 @@ def user_authentication():
     target_scope = [AuthScope.CHANNEL_READ_REDEMPTIONS]
     auth = UserAuthenticator(twitch, target_scope, force_verify=False)
     # this will open your default browser and prompt you with the twitch verification website
-    token, refresh_token = auth.authenticate()
     # add User authentication
-    twitch.set_user_authentication(token, target_scope, refresh_token)
-    return print(token)
+    return print(auth.authenticate())
