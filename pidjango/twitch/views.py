@@ -7,7 +7,7 @@ from twitchAPI.twitch import Twitch
 from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.types import AuthScope
 import environ
-from views_utils import user_authentication
+from .views_utils import user_authentication
 from django.http import JsonResponse
 
 env = environ.Env(
