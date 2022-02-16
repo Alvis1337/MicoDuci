@@ -11,6 +11,7 @@
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
+        "nicklaw5/twitch-api-php": "^6.0",
         "romanzipp/laravel-twitch": "^4.4"
     },
     "require-dev": {

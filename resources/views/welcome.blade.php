@@ -1,20 +1,40 @@
 @php
-    $twitch = new romanzipp\Twitch\Twitch;
+    $twitch_client_id = 'TWITCH_CLIENT_ID';
+    $twitch_client_secret = 'TWITCH_CLIENT_SECRET';
+    $twitch_scopes = '';
 
-    $twitch->setClientId('abc123');
+    $helixGuzzleClient = new \TwitchApi\HelixGuzzleClient($twitch_client_id);
+    $twitchApi = new \TwitchApi\TwitchApi($helixGuzzleClient, $twitch_client_id, $twitch_client_secret);
+    $oauth = $twitchApi->getOauthApi();
 
-    // Get User by Username
-    $result = $twitch->getUsers(['login' => 'herrausragend']);
+    // Get the code from URI
+    $code = $_GET['code'];
 
-    // Check, if the query was successful
-    if ( ! $result->success()) {
-        return null;
+    // Get the current URL, we'll use this to redirect them back to exactly where they came from
+    $currentUri = explode('?', 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])[0];
+
+    if ($code == '') {
+        // Generate the Oauth Uri
+        $oauthUri = $oauth->getAuthUrl($currentUri, 'code', $twitch_scopes);
+        // Redirect them as there was no auth code
+        header("Location: {$oauthUri}");
+    } else {
+        try {
+            $token = $oauth->getUserAccessToken($code, $currentUri);
+            // It is a good practice to check the status code when they've responded, this really is optional though
+            if ($token->getStatusCode() == 200) {
+                // Below is the returned token data
+                $data = json_decode($token->getBody()->getContents());
+
+                // Your bearer token
+                $twitch_access_token = $data->access_token ?? null;
+            } else {
+                //TODO: Handle Error
+            }
+        } catch (Exception $e) {
+            //TODO: Handle Error
+        }
     }
-
-    // Shift result to get single user data
-    $user = $result->shift();
-
-    return $user->id;
 @endphp
 
 <!DOCTYPE html>
@@ -144,7 +164,7 @@
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
-                    <h1>{{$user->id}}</h1>
+                    <h1>{{$twitch_access_token}}</h1>
                 </div>
             </div>
         </div>
