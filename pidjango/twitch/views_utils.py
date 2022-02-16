@@ -1,5 +1,6 @@
 from twitchAPI import AuthScope, UserAuthenticator
 from twitchAPI.twitch import Twitch
+from pprint import pprint
 import environ
 
 
@@ -18,4 +19,4 @@ def user_authentication():
     # this will open your default browser and prompt you with the twitch verification website
     token, refresh_token = auth.authenticate()
     # add User authentication
-    twitch.set_user_authentication(token, target_scope, refresh_token)
+    pprint(twitch.set_user_authentication(token, target_scope, refresh_token))
