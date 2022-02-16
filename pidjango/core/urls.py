@@ -4,4 +4,5 @@ from django.urls import path
 
 urlpatterns = [
 #    path('blink-api/', ControlLED.as_view(), name='blink-pattern')
+    path('blink-api/', 'hi')
 ]
