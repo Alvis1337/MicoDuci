@@ -1,3 +1,22 @@
+@php
+    $twitch = new romanzipp\Twitch\Twitch;
+
+    $twitch->setClientId('abc123');
+
+    // Get User by Username
+    $result = $twitch->getUsers(['login' => 'herrausragend']);
+
+    // Check, if the query was successful
+    if ( ! $result->success()) {
+        return null;
+    }
+
+    // Shift result to get single user data
+    $user = $result->shift();
+
+    return $user->id;
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -125,6 +144,7 @@
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
+                    <h1>{{$user->id}}</h1>
                 </div>
             </div>
         </div>
