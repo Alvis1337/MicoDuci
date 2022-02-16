@@ -1,5 +1,8 @@
 from pprint import pprint
-from twitchAPI import Twitch, EventSub
+
+import twitch
+from twitchAPI import Twitch
+from twitch import TwitchHelix
 import environ
 
 env = environ.Env(
@@ -7,32 +10,10 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-twitch = Twitch(env('TWITCH_AUTH_CLIENT_ID'), env('TWITCH_AUTH_CLIENT_SECRET'))
+client = twitch.TwitchHelix(env('TWITCH_AUTH_CLIENT_ID'), env('TWITCH_AUTH_CLIENT_SECRET'), scopes=[])
 
 
-async def user_authentication(data: dict):
-    pprint(data)
-
-TARGET_USERNAME = 'alvisleet'
-WEBHOOK_URL = 'https://twitch.uttensio.com/callback/oauth'
-APP_ID = env('TWITCH_AUTH_CLIENT_ID')
-APP_SECRET = env('TWITCH_AUTH_CLIENT_SECRET')
-
-twitch.authenticate_app([])
-
-uid = twitch.get_users(logins=[TARGET_USERNAME])
-user_id = uid['data'][0]['id']
-# basic setup, will run on port 8080 and a reverse proxy takes care of the https and certificate
-hook = EventSub(WEBHOOK_URL, APP_ID, 8080, twitch)
-# unsubscribe from all to get a clean slate
-hook.unsubscribe_all()
-# start client
-hook.start()
-print('subscribing to hooks:')
-hook.listen_channel_follow(user_id, on_follow)
-
-try:
-    input('press Enter to shut down...')
-finally:
-    hook.stop()
-print('done')
+def user_authentication():
+    oauth = client.get_oauth()
+    pprint(oauth)
+    pprint(client.get_streams())
