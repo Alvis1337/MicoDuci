@@ -16,4 +16,4 @@ def user_authentication():
     auth = UserAuthenticator(twitch, target_scope, force_verify=False)
     # this will open your default browser and prompt you with the twitch verification website
     # add User authentication
-    return print(auth.authenticate())
+    auth.authenticate()
