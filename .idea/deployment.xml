@@ -2,10 +2,24 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="MicoDuci" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
+      <paths name="AlphaMon">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="MicoDuci">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="oldschool.eskayeight.com">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
