@@ -13,7 +13,7 @@ twitch = Twitch(env('TWITCH_AUTH_CLIENT_ID'), env('TWITCH_AUTH_CLIENT_SECRET'))
 
 def user_authentication():
     target_scope = [AuthScope.CHANNEL_READ_REDEMPTIONS]
-    callback = env('APP_URL') + ':17563'
+    callback = env('APP_URL') + '/oauth/callback'
     auth = UserAuthenticator(twitch, target_scope, force_verify=False)
     # this will open your default browser and prompt you with the twitch verification website
     token, refresh_token = auth.authenticate()

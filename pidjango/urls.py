@@ -23,4 +23,5 @@ urlpatterns = [
     path('api/', include('pidjango.core.urls')),
     path('temp/', include('pidjango.twitch.urls')),
     path('accounts/', include('allauth.urls')),
+    path('oauth/', include('pidjango.twitch.urls'))
 ]
