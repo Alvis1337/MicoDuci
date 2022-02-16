@@ -5,3 +5,4 @@ db.sqlite3
 .bash_logout
 .bashrc
 /.env
+/pidjango/.env
