@@ -10,7 +10,7 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-client = twitch.TwitchHelix(env('TWITCH_AUTH_CLIENT_ID'), env('TWITCH_AUTH_CLIENT_SECRET'), scopes=[])
+client = twitch.TwitchHelix(client_id=env('TWITCH_AUTH_CLIENT_ID'), client_secret=env('TWITCH_AUTH_CLIENT_SECRET'), scopes=[])
 
 
 def user_authentication():
