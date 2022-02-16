@@ -1,8 +1,6 @@
-from pprint import pprint
-
-import twitch
-from twitchAPI import Twitch
-from twitch import TwitchHelix
+from twitchAPI.twitch import Twitch
+from twitchAPI.oauth import UserAuthenticator
+from twitchAPI.types import AuthScope
 import environ
 
 env = environ.Env(
@@ -10,10 +8,14 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-client = twitch.TwitchHelix(client_id=env('TWITCH_AUTH_CLIENT_ID'), client_secret=env('TWITCH_AUTH_CLIENT_SECRET'), scopes=[])
+twitch = Twitch(env('TWITCH_AUTH_CLIENT_ID'), env('TWITCH_AUTH_CLIENT_SECRET'))
 
 
 def user_authentication():
-    oauth = client.get_oauth()
-    pprint(oauth)
-    pprint(client.get_streams())
+    target_scope = [AuthScope.CHANNEL_READ_REDEMPTIONS]
+    auth = UserAuthenticator(twitch, target_scope, force_verify=False)
+    # this will open your default browser and prompt you with the twitch verification website
+    token, refresh_token = auth.authenticate()
+    # add User authentication
+    twitch.set_user_authentication(token, target_scope, refresh_token)
+    return print(token)
