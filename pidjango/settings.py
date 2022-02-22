@@ -39,19 +39,19 @@ DATABASES = {
     # ImproperlyConfigured exception if not found
     #
     # The db() method is an alias for db_url().
-    'default': env.db(),
-
-    # read os.environ['SQLITE_URL']
-    'extra': env.db_url(
-        'SQLITE_URL',
-        default='sqlite:////tmp/my-tmp-sqlite.db'
-    )
+    # 'default': env.db(),
+    #
+    # # read os.environ['SQLITE_URL']
+    # 'extra': env.db_url(
+    #     'SQLITE_URL',
+    #     default='sqlite:////tmp/my-tmp-sqlite.db'
+    # )
 }
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ['192.168.5.27', 'localhost', '192.168.5.111', 'twitch.uttensio.com', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.5.27', 'localhost', '192.168.5.111', 'twitch.uttensio.com', '127.0.0.1', "twitch-api.uttensio.com", "chris.vpn.alphatech-computing.com", "chris.vpn.alphatech-computing.com:8000"]
 
 # Application definition
 
@@ -162,7 +162,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://192.168.5.27",
     "https://api.domain.com",
     "http://localhost:8080",
-    "http://127.0.0.1:9000"
+    "http://127.0.0.1:9000",
+    "https://twitch-api.uttensio.com",
+    "http://chris.vpn.alphatech-computing.com"
 ]
 
 SITE_ID = 1
