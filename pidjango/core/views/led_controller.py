@@ -1,11 +1,11 @@
 from pprint import pprint
-# from django.http import JsonResponse
-# from rest_framework import status
-# from rest_framework.views import APIView
-# from ..exceptions import NoArgumentSupplied, InvalidArgumentSupplied
-# from .led_con_utils import control_led
-from twitchAPI.twitch import Twitch
+from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.views import APIView
 from twitchAPI import EventSub
+from ..exceptions import NoArgumentSupplied, InvalidArgumentSupplied
+from twitchAPI.twitch import Twitch
+from .led_con_utils import control_led
 
 
 def callback_user_changed(uuid, data):
@@ -39,23 +39,23 @@ def twitchwebhook(arg):
         hook.stop()
     print('done')
 
-#
-# class ControlLED(APIView):
-#
-#     def post(self, request):
-#         pattern = request.POST.get('blink_pattern')
-#         arg_list = ['fireball', 'hydrate', 'off']
-#         # verify we have recieved a valid parameter else raise exception
-#         if not pattern:
-#             raise NoArgumentSupplied
-#         if pattern not in arg_list:
-#             raise InvalidArgumentSupplied
-#         print(pattern)
-#
-#         # blink LEDs
-#         try:
-#             control_led(pattern)
-#             return JsonResponse({"data": pattern + " is the pattern"}, status=status.HTTP_200_OK)
-#         except Exception as e:
-#             print(e)
-#             return JsonResponse({"error": "big problem lol"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ControlLED(APIView):
+
+    def post(self, request):
+        pattern = request.POST.get('blink_pattern')
+        arg_list = ['fireball', 'hydrate', 'off']
+        # verify we have recieved a valid parameter else raise exception
+        if not pattern:
+            raise NoArgumentSupplied
+        if pattern not in arg_list:
+            raise InvalidArgumentSupplied
+        print(pattern)
+
+        # blink LEDs
+        try:
+            control_led(pattern)
+            return JsonResponse({"data": pattern + " is the pattern"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": "big problem lol"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -51,7 +51,7 @@ DATABASES = {
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ['192.168.5.27', 'localhost', '192.168.5.111', 'twitch.uttensio.com']
+ALLOWED_HOSTS = ['192.168.5.27', 'localhost', '192.168.5.111']
 
 # Application definition
 
@@ -76,7 +76,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
     'pidjango',
     'allauth.socialaccount.providers.twitch',
 ]
@@ -116,6 +115,21 @@ WSGI_APPLICATION = 'pidjango.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'micoduci',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+
+    # 'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+}
 
 
 # Password validation
