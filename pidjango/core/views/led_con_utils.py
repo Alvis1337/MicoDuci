@@ -3,6 +3,7 @@
 
 # Simple test for NeoPixels on Raspberry Pi
 import threading
+import concurrent.futures
 import time
 import board
 import neopixel
@@ -48,106 +49,163 @@ def wheel(pos):
     return (r, g, b) if ORDER in (neopixel.RGB, neopixel.GRB) else (r, g, b, 0)
 
 
-def flashing_timeout():
-    start_time = threading.Timer(6, control_led("off"))
-    return start_time.start()
-
-
 def albert():
-    t = threading.currentThread()
-    flashing_timeout()
-    while getattr(t, "do_run", True):
-        print(flashing_timeout())
-        for i in range(num_pixels):
-            pixel_index = (i * 256 // num_pixels)
-            pixels[i] = wheel(pixel_index & 255)
-            try:
-                pixels.fill((0, 255, 0))
-                pixels.show()
-                time.sleep(1)
+    print('starting')
 
-                pixels.fill((0, 0, 0))
-                pixels.show()
-                time.sleep(1)
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((0, 255, 0))
+        pixels.show()
+        time.sleep(1)
 
-                pixels.fill((255, 255, 0))
-                pixels.show()
-                time.sleep(1)
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
 
-                print("in albert loop")
-
-            except:
-                return print("Failed to run the albert loop")
-        init_led()
-        print("init")
-        print("terminating")
+        pixels.fill((0, 255, 0))
+        pixels.show()
+        time.sleep(1)
 
 
 def fireball():
-    t = threading.currentThread()
-    flashing_timeout()
-    while getattr(t, "do_run", True):
-        for i in range(num_pixels):
-            pixel_index = (i * 256 // num_pixels)
-            pixels[i] = wheel(pixel_index & 255)
-            try:
-                pixels.fill((255, 0, 0))
-                pixels.show()
-                time.sleep(1)
+    print('starting')
 
-                pixels.fill((0, 0, 0))
-                pixels.show()
-                time.sleep(1)
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((255, 0, 0))
+        pixels.show()
+        time.sleep(1)
 
-                pixels.fill((255, 0, 0))
-                pixels.show()
-                time.sleep(1)
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
 
-                print("in fireball loop")
-
-            except:
-                return print("Failed to run the fireball loop")
-        init_led()
-        print("init")
-        print("terminating")
+        pixels.fill((255, 0, 0))
+        pixels.show()
+        time.sleep(1)
 
 
 def hydrate():
-    t = threading.currentThread()
-    flashing_timeout()
-    while getattr(t, "do_run", True):
-        print('out?')
-        for i in range(num_pixels):
-            pixel_index = (i * 256 // num_pixels)
-            pixels[i] = wheel(pixel_index & 255)
-            try:
-                # Comment this line out if you have RGBW/GRBW NeoPixels
-                pixels.fill((0, 0, 255))
-                # Uncomment this line if you have RGBW/GRBW NeoPixels
-                # pixels.fill((255, 0, 0, 0))
-                pixels.show()
-                time.sleep(1)
+    print('starting')
 
-                # Comment this line out if you have RGBW/GRBW NeoPixels
-                pixels.fill((0, 0, 0))
-                # Uncomment this line if you have RGBW/GRBW NeoPixels
-                # pixels.fill((0, 255, 0, 0))
-                pixels.show()
-                time.sleep(1)
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((0, 0, 255))
+        pixels.show()
+        time.sleep(1)
 
-                # Comment this line out if you have RGBW/GRBW NeoPixels
-                pixels.fill((0, 0, 255))
-                # Uncomment this line if you have RGBW/GRBW NeoPixels
-                # pixels.fill((0, 0, 255, 0))
-                pixels.show()
-                # print(j)
-                print("in hydrate loop ")
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
 
-                # self.hydrate(0.001)
-            except:
-                return print('Failed to run hydrate loop')
-        init_led()
-        return print("terminating")
+        pixels.fill((0, 0, 255))
+        pixels.show()
+        time.sleep(1)
+
+        print("in hydrate loop")
+
+def wheel_spin():
+    print('starting')
+
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((255, 255, 0))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((255, 255, 0))
+        pixels.show()
+        time.sleep(1)
+
+        print("in hydrate loop")
+
+def hero_request():
+    print('starting')
+
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((0, 204, 255))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((0, 204, 255))
+        pixels.show()
+        time.sleep(1)
+
+        print("in hydrate loop")
+
+def mod_poll():
+    print('starting')
+
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((255, 102, 0))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((255, 102, 0))
+        pixels.show()
+        time.sleep(1)
+
+        print("in hydrate loop")
+
+def tarot_reading():
+    print('starting')
+
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((128, 0, 128))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((128, 0, 128))
+        pixels.show()
+        time.sleep(1)
+
+        print("in hydrate loop")
+
+def lose_glasses_5():
+    print('starting')
+
+    for i in range(num_pixels):
+        pixel_index = (i * 256 // num_pixels)
+        pixels[i] = wheel(pixel_index & 255)
+        pixels.fill((255, 255, 255))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(1)
+
+        pixels.fill((255, 255, 255))
+        pixels.show()
+        time.sleep(1)
+
+        print("in hydrate loop")
 
 
 def init_led():
@@ -155,25 +213,70 @@ def init_led():
     pixels.show()
 
 
+def kill_thread():
+    print('sleeping')
+    time.sleep(6)
+    for thread in threading.enumerate():
+        # if we find an led_loop thread, tell it to kill itself
+        thread.do_run = False
+        return
+
+
 def control_led(pattern):
-    target_func = ''
+    t2 = threading.Thread(target=kill_thread())
     if pattern == 'hydrate':
-        target_func = hydrate()
-
+        t1 = threading.Thread(name='led_loop', target=hydrate())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()
     if pattern == 'fireball':
-        target_func = fireball
-
-    elif pattern == 'off':
-        # enumerate currently running thraeds looking for led_loop thread
-        for thread in threading.enumerate():
-            # if we find an led_loop thread, tell it to kill itself
-            if thread.name == 'led_loop':
-                thread.do_run = False
-                return None
-    # if we reach this block, it's because we did not get a valid pattern, so raise relevant exception
-    else:
-        raise InvalidArgumentSupplied
-
-    # create and start the control loop thread
-    t = threading.Thread(name='led_loop', target=target_func, args=("task",))
-    t.start()
+        t1 = threading.Thread(name='led_loop', target=fireball())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()
+    if pattern == 'albert':
+        t1 = threading.Thread(name='led_loop', target=albert())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()
+    if pattern == 'wheel-spin':
+        t1 = threading.Thread(name='led_loop', target=wheel_spin())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()
+    if pattern == 'hero-request':
+        t1 = threading.Thread(name='led_loop', target=hero_request())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()
+    if pattern == 'mod-poll':
+        t1 = threading.Thread(name='led_loop', target=mod_poll())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()
+    if pattern == 'tarot-reading':
+        t1 = threading.Thread(name='led_loop', target=tarot_reading())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()
+    if pattern == 'lose-glasses-5':
+        t1 = threading.Thread(name='led_loop', target=lose_glasses_5())
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+        init_led()

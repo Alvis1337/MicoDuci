@@ -45,7 +45,7 @@ class ControlLED(APIView):
 
     def post(self, request):
         pattern = request.POST.get('blink_pattern')
-        arg_list = ['fireball', 'hydrate', 'off']
+        arg_list = ['fireball', 'hydrate', 'albert', 'wheel-spin', 'hero-request', 'mod-poll', 'tarot-reading', 'lose-glasses-5']
         # verify we have recieved a valid parameter else raise exception
         if not pattern:
             raise NoArgumentSupplied

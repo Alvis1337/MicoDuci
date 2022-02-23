@@ -6,7 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/djenv" />
     </content>
     <content url="file://$MODULE_DIR$/frontend/build" />
-    <orderEntry type="jdk" jdkName="Python 3.8 (MicoDuci)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (MicoDuci)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
