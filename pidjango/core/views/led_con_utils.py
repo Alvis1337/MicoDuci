@@ -147,7 +147,6 @@ def hydrate():
             except:
                 return print('Failed to run hydrate loop')
         init_led()
-        print("init")
         return print("terminating")
 
 
