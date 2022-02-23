@@ -8,12 +8,13 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-twitch = Twitch(env('TWITCH_AUTH_CLIENT_ID'), env('TWITCH_AUTH_CLIENT_SECRET'))
+twitch = Twitch(env('TWITCH_AUTH_CLIENT_ID'), env('TWITCH_AUTH_CLIENT_SECRET'), target_app_auth_scope=[AuthScope.CHANNEL_READ_REDEMPTIONS])
 
 
 def user_authentication():
-    target_scope = [AuthScope.CHANNEL_READ_REDEMPTIONS]
+    target_scope = [AuthScope.BITS_READ]
     auth = UserAuthenticator(twitch, target_scope, force_verify=False)
     # this will open your default browser and prompt you with the twitch verification website
+    token, refresh_token = auth.authenticate()
     # add User authentication
-    auth.authenticate()
+    twitch.set_user_authentication(token, target_scope, refresh_token)

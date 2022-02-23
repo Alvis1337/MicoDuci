@@ -51,7 +51,7 @@ DATABASES = {
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ['192.168.5.27', 'localhost', '192.168.5.111', 'twitch.uttensio.com']
+ALLOWED_HOSTS = ['192.168.5.27', 'localhost', '192.168.5.111', 'twitch.uttensio.com', '127.0.0.1']
 
 # Application definition
 
