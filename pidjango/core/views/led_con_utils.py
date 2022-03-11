@@ -17,15 +17,19 @@ from rest_framework import status
 pixel_pin = board.D18
 
 # The number of NeoPixels
-num_pixels = 6
+num_pixels = 60
 # The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
 # For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
 ORDER = neopixel.GRB
 
 pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER
+    pixel_pin, num_pixels, brightness=1, auto_write=False, pixel_order=ORDER
 )
 
+
+def init_led():
+    pixels.fill((255, 50, 80))
+    pixels.show()
 
 def wheel(pos):
     # Input a value 0 to 255 to get a color value.
@@ -52,7 +56,7 @@ def wheel(pos):
 def albert():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((0, 255, 0))
@@ -71,7 +75,7 @@ def albert():
 def fireball():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((255, 0, 0))
@@ -90,7 +94,7 @@ def fireball():
 def hydrate():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((0, 0, 255))
@@ -110,7 +114,7 @@ def hydrate():
 def wheel_spin():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((255, 255, 0))
@@ -130,7 +134,7 @@ def wheel_spin():
 def hero_request():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((0, 204, 255))
@@ -150,7 +154,7 @@ def hero_request():
 def mod_poll():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((255, 102, 0))
@@ -170,7 +174,7 @@ def mod_poll():
 def tarot_reading():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((128, 0, 128))
@@ -190,7 +194,7 @@ def tarot_reading():
 def lose_glasses_5():
     print('starting')
 
-    for i in range(num_pixels):
+    for i in range(5):
         pixel_index = (i * 256 // num_pixels)
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill((255, 255, 255))
@@ -208,75 +212,59 @@ def lose_glasses_5():
         print("in hydrate loop")
 
 
-def init_led():
-    pixels.fill((250, 140, 160))
-    pixels.show()
-
-
-def kill_thread():
-    print('sleeping')
-    time.sleep(6)
-    for thread in threading.enumerate():
-        # if we find an led_loop thread, tell it to kill itself
-        thread.do_run = False
-        return
 
 
 def control_led(pattern):
-    t2 = threading.Thread(target=kill_thread())
     if pattern == 'hydrate':
         t1 = threading.Thread(name='led_loop', target=hydrate())
+        t2 = threading.Thread(target=init_led())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
     if pattern == 'fireball':
         t1 = threading.Thread(name='led_loop', target=fireball())
+        t2 = threading.Thread(target=init_led())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
     if pattern == 'albert':
         t1 = threading.Thread(name='led_loop', target=albert())
+        t2 = threading.Thread(target=init_led())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
     if pattern == 'wheel-spin':
         t1 = threading.Thread(name='led_loop', target=wheel_spin())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
     if pattern == 'hero-request':
         t1 = threading.Thread(name='led_loop', target=hero_request())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
     if pattern == 'mod-poll':
         t1 = threading.Thread(name='led_loop', target=mod_poll())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
     if pattern == 'tarot-reading':
         t1 = threading.Thread(name='led_loop', target=tarot_reading())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
     if pattern == 'lose-glasses-5':
         t1 = threading.Thread(name='led_loop', target=lose_glasses_5())
         t1.start()
         t2.start()
         t1.join()
         t2.join()
-        init_led()
+    if pattern == 'off':
+        return init_led()
