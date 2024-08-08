@@ -76,6 +76,8 @@ def animate_pixels(color):
         pixels.fill(color)
         pixels.show()
         time.sleep(1)
+    sweep()
+    init_led()
 
 
 def albert():
