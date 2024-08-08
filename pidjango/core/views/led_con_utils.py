@@ -20,11 +20,11 @@ def init_led():
 def sweep():
     for i in range(len(pixels)):
         pixels[i] = (255, 50, 80)
-        time.sleep(0.05)
+        time.sleep(0.03)
         pixels.show()
     for i in range(len(pixels)):
         pixels[i] = (0, 0, 0)  # Turn off
-        time.sleep(0.05)
+        time.sleep(0.03)
         pixels.show()
 
 def alternate():
@@ -67,15 +67,15 @@ def animate_pixels(color):
         pixels[i] = wheel(pixel_index & 255)
         pixels.fill(color)
         pixels.show()
-        time.sleep(1)
+        time.sleep(.5)
 
         pixels.fill((0, 0, 0))
         pixels.show()
-        time.sleep(1)
+        time.sleep(.5)
 
         pixels.fill(color)
         pixels.show()
-        time.sleep(1)
+        time.sleep(.5)
     sweep()
     init_led()
 
