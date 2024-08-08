@@ -112,10 +112,10 @@ def control_led(pattern):
         'fireball': fireball,
         'albert': albert,
         'wheel-spin': wheel_spin,
-        'hero_request': hero_request,
-        'mod_poll': mod_poll,
-        'tarot_reading': tarot_reading,
-        'lose_glasses_5': lose_glasses_5
+        'hero-request': hero_request,
+        'mod-poll': mod_poll,
+        'tarot-reading': tarot_reading,
+        'lose-glasses-5': lose_glasses_5
     }
 
     if pattern in pattern_functions:
