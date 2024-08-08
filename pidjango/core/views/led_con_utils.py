@@ -19,7 +19,7 @@ def init_led():
 
 def sweep():
     for i in range(len(pixels)):
-        pixels[i] = (255, 0, 0)  # Red color
+        pixels[i] = (255, 50, 80)
         time.sleep(0.05)
         pixels.show()
     for i in range(len(pixels)):
