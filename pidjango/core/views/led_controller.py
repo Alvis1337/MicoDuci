@@ -14,10 +14,10 @@ def callback_user_changed(uuid, data):
 
 
 def twitchwebhook(arg):
-    target_username = 'uttensio'
-    webhook_url = 'https://camphelp.ngrok.io/oauth/callback'
-    app_id = 'fpdbev7ktti34dhr9cwpbxa17tfqc6'
-    app_secret = 'd3va2j8wk5ui61oj63ljksvta14vfn'
+    target_username = ''
+    webhook_url = ''
+    app_id = ''
+    app_secret = ''
 
     twitch = Twitch(app_id, app_secret)
     twitch.authenticate_app([])
